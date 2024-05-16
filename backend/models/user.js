@@ -23,7 +23,6 @@ const User = sequelize.define('user', {
         type: Sequelize.STRING,
         allowNull: false
     },
-    // Define foreign key role_id
     roleId: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -32,10 +31,8 @@ const User = sequelize.define('user', {
             key: 'id'
         }
     }
-    // Add more fields as needed
 });
 
-// Define association to Role model
 User.belongsTo(Role, { foreignKey: 'roleId', as: 'role' });
 
 module.exports = User;

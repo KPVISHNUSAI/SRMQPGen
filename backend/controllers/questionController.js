@@ -28,6 +28,12 @@ exports.getQuestionById = async (req, res) => {
 exports.createQuestion = async (req, res) => {
     const questionData = req.body;
     try {
+        // Check if user is admin
+        console.log(req.user.roleId);
+        if (req.user.roleId !== 1) {
+            return res.status(403).json({ message: 'Only admin users can create questions'});
+        }
+        
         const newQuestion = await Question.create(questionData);
         res.status(201).json(newQuestion);
     } catch (error) {
@@ -41,6 +47,11 @@ exports.updateQuestion = async (req, res) => {
     const { id } = req.params;
     const updatedData = req.body;
     try {
+        // Check if user is admin
+        if (req.user.roleId !== 1) {
+            return res.status(403).json({ message: 'Only admin users can update questions' });
+        }
+        
         const question = await Question.findByPk(id);
         if (!question) {
             return res.status(404).json({ message: 'Question not found' });
@@ -56,6 +67,11 @@ exports.updateQuestion = async (req, res) => {
 exports.deleteQuestion = async (req, res) => {
     const { id } = req.params;
     try {
+        // Check if user is admin
+        if (req.user.roleId !== 1) {
+            return res.status(403).json({ message: 'Only admin users can delete questions' });
+        }
+        
         const question = await Question.findByPk(id);
         if (!question) {
             return res.status(404).json({ message: 'Question not found' });

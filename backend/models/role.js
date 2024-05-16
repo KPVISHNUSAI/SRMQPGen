@@ -17,4 +17,25 @@ const Role = sequelize.define('role', {
     // Add more fields as needed
 });
 
+const roles = [
+    { name: 'admin' },
+    { name: 'faculty' }
+];
+
+// Create roles in the database
+const createRoles = async () => {
+    try {
+        // Loop through roles and create them
+        for (const role of roles) {
+            await Role.findOrCreate({ where: role });
+        }
+        console.log('Roles created successfully');
+    } catch (error) {
+        console.error('Error creating roles:', error);
+    }
+};
+
+// Call the function to create roles
+createRoles();
+
 module.exports = Role;
