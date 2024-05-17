@@ -17,7 +17,6 @@ app.use(cors());
 app.use(cookieParser());
 
 // Middleware to authenticate users and attach user information to the request object
-// Middleware to authenticate users and attach user information to the request object
 function authenticateUser(req, res, next) {
     const authToken = req.cookies.authToken;
     console.log(`################# Auth Token ${authToken} ######################`);

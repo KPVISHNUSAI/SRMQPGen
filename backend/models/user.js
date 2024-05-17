@@ -1,38 +1,39 @@
 // user.js
 
-const Sequelize = require('sequelize');
-const sequelize = require('../db');
-const Role = require('./role');
-
-const User = sequelize.define('user', {
-    id: {
-        type: Sequelize.INTEGER,
+module.exports = (sequelize, DataTypes) => {
+    const User = sequelize.define('User', {
+      id: {
+        type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
-    },
-    username: {
-        type: Sequelize.STRING,
+      },
+      username: {
+        type: DataTypes.STRING,
         allowNull: false
-    },
-    email: {
-        type: Sequelize.STRING,
+      },
+      email: {
+        type: DataTypes.STRING,
         allowNull: false,
         unique: true
-    },
-    password: {
-        type: Sequelize.STRING,
+      },
+      password: {
+        type: DataTypes.STRING,
         allowNull: false
-    },
-    roleId: {
-        type: Sequelize.INTEGER,
+      },
+      roleId: {
+        type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: 'roles',
-            key: 'id'
+          model: 'Role',
+          key: 'id'
         }
-    }
-});
-
-User.belongsTo(Role, { foreignKey: 'roleId', as: 'role' });
-
-module.exports = User;
+      }
+    });
+  
+    User.associate = function(models) {
+      User.belongsTo(models.Role, { foreignKey: 'roleId', as: 'role' });
+    };
+  
+    return User;
+  };
+  

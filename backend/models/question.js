@@ -1,31 +1,31 @@
-const Sequelize = require('sequelize');
-const sequelize = require('../db');
-
-const Question = sequelize.define('question', {
-    questionId: {
-        type: Sequelize.INTEGER,
+module.exports = (sequelize, DataTypes) => {
+    const Question = sequelize.define('Question', {
+      questionId: {
+        type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
-    },
-    questionString: {
-        type: Sequelize.TEXT,
+      },
+      questionString: {
+        type: DataTypes.TEXT,
         allowNull: false
-    },
-    images: {
-        type: Sequelize.JSON 
-    },
-    subject: {
-        type: Sequelize.STRING
-    },
-    subjectCode: {
-        type: Sequelize.STRING
-    },
-    examName: {
-        type: Sequelize.STRING
-    },
-    unitName: {
-        type: Sequelize.STRING
-    }
-});
-
-module.exports = Question;
+      },
+      images: {
+        type: DataTypes.JSON
+      },
+      subject: {
+        type: DataTypes.STRING
+      },
+      subjectCode: {
+        type: DataTypes.STRING
+      },
+      examName: {
+        type: DataTypes.STRING
+      },
+      unitName: {
+        type: DataTypes.STRING
+      }
+    });
+  
+    return Question;
+  };
+  

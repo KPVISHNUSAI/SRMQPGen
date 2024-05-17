@@ -2,16 +2,15 @@ const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const User = require('../models/user');
+const db = require('../models/index');
 
-// Route for user login
 // Route for user login
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
     try {
         // Check if user exists
-        const user = await User.findOne({ where: { email } });
+        const user = await db.User.findOne({ where: { email } });
         if (!user) {
             return res.status(401).json({ message: 'Invalid email or password' });
         }
@@ -51,7 +50,7 @@ router.post('/signup', async (req, res) => {
 
     try {
         // Check if user with the provided email already exists
-        const existingUser = await User.findOne({ where: { email } });
+        const existingUser = await db.User.findOne({ where: { email } });
         if (existingUser) {
             return res.status(400).json({ message: 'User with this email already exists' });
         }
@@ -60,7 +59,7 @@ router.post('/signup', async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         // Create a new user
-        const newUser = await User.create({
+        const newUser = await db.User.create({
             email,
             username, // Add username field
             roleId, // Add roleId field

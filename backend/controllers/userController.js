@@ -1,8 +1,8 @@
-const User = require('../models/user');
+const db = require('../models/index');
 
 exports.getAllUsers = async (req, res) => {
     try {
-        const users = await User.findAll();
+        const users = await db.User.findAll();
         res.json(users);
     } catch (error) {
         console.error('Error fetching users:', error);
@@ -13,7 +13,7 @@ exports.getAllUsers = async (req, res) => {
 exports.getUserById = async (req, res) => {
     const { id } = req.params;
     try {
-        const user = await User.findByPk(id);
+        const user = await db.User.findByPk(id);
         if (user) {
             res.json(user);
         } else {
@@ -28,7 +28,7 @@ exports.getUserById = async (req, res) => {
 exports.createUser = async (req, res) => {
     const userData = req.body;
     try {
-        const newUser = await User.create(userData);
+        const newUser = await db.User.create(userData);
         res.status(201).json(newUser);
     } catch (error) {
         console.error('Error creating user:', error);
@@ -41,7 +41,7 @@ exports.updateUser = async (req, res) => {
     const { id } = req.params;
     const updatedData = req.body;
     try {
-        const user = await User.findByPk(id);
+        const user = await db.User.findByPk(id);
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
@@ -57,7 +57,7 @@ exports.updateUser = async (req, res) => {
 exports.deleteUser = async (req, res) => {
     const { id } = req.params;
     try {
-        const user = await User.findByPk(id);
+        const user = await db.User.findByPk(id);
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }

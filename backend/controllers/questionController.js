@@ -1,8 +1,9 @@
-const Question = require('../models/question');
+const db = require('../models/index');
+
 
 exports.getAllQuestions = async (req, res) => {
     try {
-        const questions = await Question.findAll();
+        const questions = await db.Question.findAll();
         res.json(questions);
     } catch (error) {
         console.error('Error fetching questions:', error);
@@ -13,7 +14,7 @@ exports.getAllQuestions = async (req, res) => {
 exports.getQuestionById = async (req, res) => {
     const { id } = req.params;
     try {
-        const question = await Question.findByPk(id);
+        const question = await db.Question.findByPk(id);
         if (question) {
             res.json(question);
         } else {
@@ -34,7 +35,7 @@ exports.createQuestion = async (req, res) => {
             return res.status(403).json({ message: 'Only admin users can create questions'});
         }
         
-        const newQuestion = await Question.create(questionData);
+        const newQuestion = await db.Question.create(questionData);
         res.status(201).json(newQuestion);
     } catch (error) {
         console.error('Error creating question:', error);
@@ -52,7 +53,7 @@ exports.updateQuestion = async (req, res) => {
             return res.status(403).json({ message: 'Only admin users can update questions' });
         }
         
-        const question = await Question.findByPk(id);
+        const question = await db.Question.findByPk(id);
         if (!question) {
             return res.status(404).json({ message: 'Question not found' });
         }
@@ -72,7 +73,7 @@ exports.deleteQuestion = async (req, res) => {
             return res.status(403).json({ message: 'Only admin users can delete questions' });
         }
         
-        const question = await Question.findByPk(id);
+        const question = await db.Question.findByPk(id);
         if (!question) {
             return res.status(404).json({ message: 'Question not found' });
         }

@@ -1,8 +1,8 @@
-const Role = require('../models/role');
+const db = require('../models/index');
 
 exports.getAllRoles = async (req, res) => {
     try {
-        const roles = await Role.findAll();
+        const roles = await db.Role.findAll();
         res.json(roles);
     } catch (error) {
         console.error('Error fetching roles:', error);
@@ -13,7 +13,7 @@ exports.getAllRoles = async (req, res) => {
 exports.getRoleById = async (req, res) => {
     const { id } = req.params;
     try {
-        const role = await Role.findByPk(id);
+        const role = await db.Role.findByPk(id);
         if (role) {
             res.json(role);
         } else {
@@ -28,7 +28,7 @@ exports.getRoleById = async (req, res) => {
 exports.createRole = async (req, res) => {
     const roleData = req.body;
     try {
-        const newRole = await Role.create(roleData);
+        const newRole = await db.Role.create(roleData);
         res.status(201).json(newRole);
     } catch (error) {
         console.error('Error creating role:', error);
@@ -40,7 +40,7 @@ exports.updateRole = async (req, res) => {
     const { id } = req.params;
     const updatedData = req.body;
     try {
-        const role = await Role.findByPk(id);
+        const role = await db.Role.findByPk(id);
         if (!role) {
             return res.status(404).json({ message: 'Role not found' });
         }
@@ -56,7 +56,7 @@ exports.updateRole = async (req, res) => {
 exports.deleteRole = async (req, res) => {
     const { id } = req.params;
     try {
-        const role = await Role.findByPk(id);
+        const role = await db.Role.findByPk(id);
         if (!role) {
             return res.status(404).json({ message: 'Role not found' });
         }
