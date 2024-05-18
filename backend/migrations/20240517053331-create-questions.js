@@ -1,50 +1,63 @@
 'use strict';
 
-/** @type {import('sequelize-cli').Migration} */
-
-
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('questions', {
-      questionId: {
+    await queryInterface.createTable('Questions', {
+      id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true
       },
       questionString: {
-        type: Sequelize.TEXT,
+        type: Sequelize.STRING,
         allowNull: false
       },
       images: {
-        type: Sequelize.JSON
+        type: Sequelize.JSON,
+        allowNull: true
       },
-      subject: {
-        type: Sequelize.STRING
+      subjectId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'Subjects',
+          key: 'subjectID'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       },
-      subjectCode: {
-        type: Sequelize.STRING
+      typeId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'Hardnesses',
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       },
-      examName: {
-        type: Sequelize.STRING
-      },
-      unitName: {
-        type: Sequelize.STRING
+      unitId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'Units',
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       },
       createdAt: {
         type: Sequelize.DATE,
-        allowNull: false,
-        defaultValue: Sequelize.NOW
+        allowNull: false
       },
       updatedAt: {
         type: Sequelize.DATE,
-        allowNull: false,
-        defaultValue: Sequelize.NOW
+        allowNull: false
       }
     });
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('questions');
+    await queryInterface.dropTable('Questions');
   }
 };
-

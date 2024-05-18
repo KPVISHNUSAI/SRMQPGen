@@ -1,37 +1,32 @@
-// seeders/20240518120000-questions-seed.js
-
 'use strict';
+
 /** @type {import('sequelize-cli').Migration} */
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    // Define the seed data for Questions
-    const questionsData = [
+    await queryInterface.bulkInsert('Questions', [
       {
-        questionString: 'Sample Question 1',
-        images: ['image1.jpg', 'image2.jpg'],
-        subject: 'Math',
-        subjectCode: 'MATH101',
-        examName: 'Final Exam',
-        unitName: 'Algebra'
+        questionString: "Write the regular expression for the following language.Set of strings over alphabet {a, b, c} containing atleast one 'a' followed by atleast one 'b'followed by atleast one 'c'.",
+        images: null,
+        subjectId: 1, 
+        typeId: 1,    
+        unitId: 1,    
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
-        questionString: 'Sample Question 2',
-        images: ['image3.jpg'],
-        subject: 'Science',
-        subjectCode: 'SCI102',
-        examName: 'Midterm Exam',
-        unitName: 'Physics'
+        questionString: "RE = (a+b)*+(a.c)* Convert it into DFA in direct method",
+        images: null,
+        subjectId: 2,
+        typeId: 3,
+        unitId: 1,
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
-      // Add more seed data as needed
-    ];
-
-    // Use bulkCreate to insert seed data into the Questions table
-    await queryInterface.bulkCreate('questions', questionsData, {});
+    ], {});
   },
 
   down: async (queryInterface, Sequelize) => {
-    // Remove the seeded data from the Questions table
-    await queryInterface.bulkDelete('questions', null, {});
+    await queryInterface.bulkDelete('Questions', null, {});
   }
 };

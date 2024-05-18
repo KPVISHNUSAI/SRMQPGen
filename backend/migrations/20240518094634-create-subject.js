@@ -4,48 +4,37 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('users', {
-      id: {
+    await queryInterface.createTable('Subjects', {
+      subjectID: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true
       },
-      username: {
+      subjectCode: {
         type: Sequelize.STRING,
         allowNull: false
       },
-      email: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        unique: true
-      },
-      password: {
+      subjectName: {
         type: Sequelize.STRING,
         allowNull: false
-      },
-      roleId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'roles',
-          key: 'id'
-        }
       },
       createdAt: {
         type: Sequelize.DATE,
-        allowNull: false,
-        defaultValue: Sequelize.NOW
+        allowNull: false
       },
       updatedAt: {
         type: Sequelize.DATE,
-        allowNull: false,
-        defaultValue: Sequelize.NOW
+        allowNull: false
       }
+    });
+
+    await queryInterface.addIndex('Subjects', ['subjectCode'], {
+      unique: true,
+      name: 'subjectCode_unique_constraint'
     });
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('users');
+    await queryInterface.dropTable('Subjects');
   }
 };
-

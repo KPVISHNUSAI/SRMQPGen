@@ -27,6 +27,10 @@ module.exports = (sequelize, DataTypes) => {
           model: 'Role',
           key: 'id'
         }
+      },
+      dob: {
+        type: DataTypes.DATEONLY,
+        allowNull: true
       }
     });
   
