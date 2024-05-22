@@ -1,6 +1,5 @@
 const db = require('../models/index');
 
-
 exports.getAllQuestions = async (req, res) => {
     try {
         const questions = await db.Question.findAll();
