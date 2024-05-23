@@ -11,7 +11,7 @@ export const logout = () => {
 };
 
 const api = axios.create({
-  baseURL: 'http://localhost:3000', 
+  baseURL: 'http://localhost:4000', 
 });
 
 

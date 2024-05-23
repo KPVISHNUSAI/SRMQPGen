@@ -6,7 +6,7 @@ const Register = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState(''); // New state for confirm password
+  const [confirmPassword, setConfirmPassword] = useState('');
   const roleId = 2;
 
   const handleRegister = async (e) => {
@@ -14,12 +14,11 @@ const Register = () => {
     try {
       if (password !== confirmPassword) {
         console.error('Passwords do not match');
-        return; // Exit early if passwords don't match
+        return;
       }
 
       const response = await register({ username, email, password, roleId});
       console.log('Registration successful:', response.data);
-      // Redirect to login page or another page
 
     } catch (error) {
       console.error('Registration failed:', error);
@@ -52,7 +51,7 @@ const Register = () => {
           type="password"
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
-          placeholder="Confirm Password" // New input for confirm password
+          placeholder="Confirm Password"
         />
         <button type="submit">Register</button>
       </form>
