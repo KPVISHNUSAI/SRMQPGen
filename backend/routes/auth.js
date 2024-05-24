@@ -31,6 +31,7 @@ router.post('/login', async (req, res) => {
 
         // Set the token as a cookie
         res.cookie('authToken', token, { httpOnly: true, secure: true, sameSite: 'none' }).json({ 
+            userId: user.id,
             username: user.username, 
             email: user.email,
             roleId: user.roleId,

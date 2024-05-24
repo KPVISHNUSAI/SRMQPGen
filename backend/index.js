@@ -13,7 +13,10 @@ if (result.error) {
 
 // Middleware
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:3000', // Frontend URL
+    credentials: true, // Allow credentials
+  }));
 app.use(cookieParser());
 
 // Middleware to authenticate users and attach user information to the request object

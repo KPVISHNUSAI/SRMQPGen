@@ -12,6 +12,7 @@ export const logout = () => {
 
 const api = axios.create({
   baseURL: 'http://localhost:4000', 
+  withCredentials: true,
 });
 
 
@@ -19,7 +20,8 @@ export const login = (credentials) => api.post('/auth/login', credentials);
 export const register = (userData) => api.post('/auth/signup', userData);
 
 
-export const fetchUsers = () => api.get('/users');
+export const fetchUsers = () => api.get('/allusers');
+export const currentUser = () => api.get('/users');
 export const createUser = (user) => api.post('/users', user);
 
 

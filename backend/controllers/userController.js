@@ -17,10 +17,40 @@ exports.getUserById = async (req, res) => {
         if (user) {
             res.json(user);
         } else {
-            res.status(404).json({ message: 'User not found' });
+            res.status(404).json({ message: 'Userzzzzzzzzzzzzz not found' });
         }
     } catch (error) {
         console.error('Error fetching user:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};
+
+exports.getCurrentUser = async (req, res) => {
+    
+    try {
+        
+        const user = await db.User.findByPk(req.user.id, {
+            include: [{ model: db.Role, as: 'role' }] // Include the role details
+        });
+
+        
+
+        if (!user) {
+            console.log(`###################   user id:   ${req.user.id}   #######################`);
+            return res.status(404).json({ message: 'User not found', error: `${req.user.id}` });
+        }
+
+        res.json({
+            id: user.id,
+            username: user.username,
+            email: user.email,
+            role: user.role.name, // Assuming your role model has a 'name' field
+            dob: user.dob
+        });
+
+
+    } catch (error) {
+        console.error('Error fetching authenticated user details:', error);
         res.status(500).json({ message: 'Internal server error' });
     }
 };
@@ -43,7 +73,7 @@ exports.updateUser = async (req, res) => {
     try {
         const user = await db.User.findByPk(id);
         if (!user) {
-            return res.status(404).json({ message: 'User not found' });
+            return res.status(404).json({ message: 'Userz not found' });
         }
         await user.update(updatedData);
         res.json(user);
@@ -59,7 +89,7 @@ exports.deleteUser = async (req, res) => {
     try {
         const user = await db.User.findByPk(id);
         if (!user) {
-            return res.status(404).json({ message: 'User not found' });
+            return res.status(404).json({ message: 'Userz not found' });
         }
         await user.destroy();
         res.json({ message: 'User deleted successfully' });

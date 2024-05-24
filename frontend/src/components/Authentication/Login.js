@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { login } from '../../api/api';
 import Cookies from 'js-cookie';
+import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 
 const Login = () => {
@@ -13,7 +14,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await login({ email, password }); // Pass isAdmin to the login function
-      console.log(response);
+      console.log(response.data);
       Cookies.set('token', response.data.token, { expires: 1 });
       history.replace('/');
     } catch (error) {
@@ -39,6 +40,7 @@ const Login = () => {
         />
         <button type="submit">Login</button>
       </form>
+      <Link to="/register">not yet register</Link>
     </div>
   );
 };
