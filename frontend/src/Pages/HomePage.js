@@ -21,8 +21,9 @@ const HomePage = () => {
   }, []);
   
   return (
+    
     <div>
-      <Header />
+      <Header />  
       <h1>Welcome to the Question Paper Generator</h1>
       {user ? (
         <div>

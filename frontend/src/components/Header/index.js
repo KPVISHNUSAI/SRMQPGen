@@ -1,35 +1,35 @@
-import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import { isAuthenticated, logout } from '../../api/api';
+import React from "react";
+import { Link, useHistory } from "react-router-dom";
+import { isAuthenticated, logout } from "../../api/api";
+import "./index.css";
 
 const Header = () => {
   const history = useHistory();
 
   const handleLogout = () => {
-    logout(); // Clear authentication token
-    history.push('/login'); // Redirect to login page after logout
+    logout();
+    history.push("/login");
   };
 
   return (
-    <header>
+    <header className="navbar">
       <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
+        <ul className="navlist">
+          <li >
+            <Link className="nav-element" to="/">Home</Link>
           </li>
           <li>
-            <Link to="/questions">Profile</Link>
+            <Link className="nav-element" to="/questions">Set Paper</Link>
           </li>
-          {/* Add more navigation links as needed */}
+          <li>
+            {isAuthenticated() ? (
+              <button onClick={handleLogout}>Logout</button>
+            ) : (
+              <Link to="/login">Login</Link>
+            )}
+          </li>
         </ul>
       </nav>
-      <div>
-        {isAuthenticated() ? (
-          <button onClick={handleLogout}>Logout</button>
-        ) : (
-          <Link to="/login">Login</Link>
-        )}
-      </div>
     </header>
   );
 };

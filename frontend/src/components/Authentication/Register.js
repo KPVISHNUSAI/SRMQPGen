@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { register } from '../../api/api';
 import { Link } from 'react-router-dom';
+import './Auth.css'
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -27,36 +28,43 @@ const Register = () => {
   };
 
   return (
-    <div>
-      <h2>Register</h2>
-      <form onSubmit={handleRegister}>
+    <div className='onboarding'>
+      <h1 className='heading'>SRM Question Paper Generator</h1>
+      <form className='auth-form' onSubmit={handleRegister}>
+      <label htmlFor='uname'><b>Username</b></label>
         <input
           type="text"
+          id='uname'
+          className='input-box'
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           placeholder="Username"
         />
         <input
           type="email"
+          className='input-box'
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Email"
         />
         <input
           type="password"
+          className='input-box'
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
         />
         <input
           type="password"
+          className='input-box'
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
           placeholder="Confirm Password"
         />
-        <button type="submit">Register</button>
+        <button className='auth-button' type="submit">Register</button>
+        <Link to="/login">Already registered? Login</Link>
       </form>
-      <Link to="/login">Already registered? Login</Link>
+      
     </div>
   );
 };
